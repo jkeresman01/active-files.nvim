@@ -68,14 +68,9 @@ function M.add_file(filepath)
 end
 
 function M.switch_to_file(index)
-    print("Im here")
     print(M.active_files[index]);
     local switcth_to_file_cmd = string.format("edit %s",  M.active_files[index].trim());
-    print("Im here 2")
-    print("Switch cmd: " .. switcth_to_file_cmd);
-    print("Im here 2")
     vim.cmd(switcth_to_file_cmd)
-    print("Im here 3")
     M.add_file(M.active_files[index])
 end
 
