@@ -33,7 +33,7 @@ In modern IDEs like Visual Studio and JetBrains products, there's always a fast 
 
 **active-files.nvim** provides a clean, dedicated UI to quickly access the last N files you've worked on — sorted by recency of usage. With a popup window, non-intrusive indexing, and direct file switching, this gives you a workflow familiar to JetBrains and VS users — but native to Neovim.
 
-[![asciicast](https://asciinema.org/a/tg6c4pkAQnVRslSo4y3D9I3JP.svg)](https://asciinema.org/a/tg6c4pkAQnVRslSo4y3D9I3JP)
+[![asciicast](https://asciinema.org/a/1Gnp274hSDNpdkfnWerxj2sF0.svg)](https://asciinema.org/a/1Gnp274hSDNpdkfnWerxj2sF0)
 
 ---
 
