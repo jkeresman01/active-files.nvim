@@ -9,7 +9,6 @@
 -- File: ui.lua
 -- Author: Josip Keresman
 
--- File: lua/active-files/ui.lua
 local util = require("active-files.util")
 
 local M = {}
