@@ -57,10 +57,8 @@ active-files.nvim/
 
 - [x] Automatically tracks most recently opened files
 - [x] Floating window UI inspired by JetBrains and Visual Studio
-- [x] Only tracks project-local files
 - [x] Jump to file by number key (1–9)
-- [x] Displays filenames with nice relative paths
-- [x] Non-selectable virtual numbers styled like JetBrains "Switcher"
+- [x] Displays filenames with relative paths
 - [ ] Configurable number of active files --planned
 - [ ] Configurable active files sorting criteria -- planned
 
@@ -101,10 +99,11 @@ These are the available user commands:
 Set the keybindings to match your workflow here is one example:
 
 ```lua
-require("active-files.commands").register()
+require("active-files").setup()
 
 vim.keymap.set("n", "<C-s>", "<CMD>ShowActiveFiles<CR>", { desc = "Show active files" })
 
+-- Optional 
 for i = 1, 9 do
   vim.keymap.set("n", "<leader>" .. i, function()
     vim.cmd("SwitchToActiveFile " .. i)
