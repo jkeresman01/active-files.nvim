@@ -99,19 +99,28 @@ These are the available user commands:
 Set the keybindings to match your workflow here is one example:
 
 ```lua
-require('active-files.commands').register()
+require("active-files.commands").register()
 
-vim.keymap.set("n", "<C-s>", "<CMD>ShowActiveFiles<CR>")
+vim.keymap.set("n", "<C-s>", "<CMD>ShowActiveFiles<CR>", { desc = "Show active files" })
+
 for i = 1, 9 do
   vim.keymap.set("n", "<leader>" .. i, function()
-    require("active-files.ui").switch_to_file(i)
-  end, { noremap = true, silent = true })
+    vim.cmd("SwitchToActiveFile " .. i)
+  end, { noremap = true, silent = true, desc = "Switch to active file " .. i })
 end
-```
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "active-files",
+  callback = function(args)
+    vim.keymap.set("n", "<CR>", "<CMD>SelectActiveFile<CR>", { buffer = args.buf, silent = true })
+  end,
+})
+
+```
 ---
 
-| Keybinding     | Action                                      |
-|----------------|---------------------------------------------|
-| `<C-s>`        | Show recent active files popup              |
-| `<leader>1-9`  | Instantly jump to file at slot 1–9          |
+| Keybinding      | Mode | Description                                  |
+|------------------|------|----------------------------------------------|
+| `<C-s>`          | `n`  | Show the active files floating popup         |
+| `<leader>1`–`9`  | `n`  | Jump directly to the N-th most recent file   |
+| `<CR>`           | `n`  | Inside popup: open the selected file         |
