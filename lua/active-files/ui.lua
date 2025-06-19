@@ -19,6 +19,9 @@ M.win_id = nil
 M.bufnr = nil
 M.index_lookup = {}
 
+-- Adds or moves a file to the front of the active files list
+--
+-- @param filepath The full path of the file to track
 function M.track_file(filepath)
     if not util.is_project_file(filepath) then
         return
@@ -35,12 +38,18 @@ function M.track_file(filepath)
     end
 end
 
+-- Closes the floating window if it's open
+--
+-- @return nil
 local function close_window()
     if M.win_id and vim.api.nvim_win_is_valid(M.win_id) then
         vim.api.nvim_win_close(M.win_id, true)
     end
 end
 
+-- Focuses the previously active window before the UI was opened
+--
+-- @return nil
 local function focus_previous_window()
     local prev_win = vim.fn.win_getid(vim.fn.winnr("#"))
     if prev_win and vim.api.nvim_win_is_valid(prev_win) then
@@ -48,6 +57,9 @@ local function focus_previous_window()
     end
 end
 
+-- Switches to the file at the specified index in the active files list
+--
+-- @param index The index of the file in the list
 function M.switch_to_file(index)
     if not index or index < 1 or index > #M.active_files then
         print("Invalid file index: " .. tostring(index))
@@ -71,6 +83,9 @@ function M.switch_to_file(index)
     end)
 end
 
+-- Selects and switches to a file based on the currently selected line
+--
+-- @return nil
 function M.select_file()
     local row = vim.api.nvim_win_get_cursor(0)[1]
     local index = M.index_lookup[row]
@@ -83,6 +98,9 @@ function M.select_file()
     end)
 end
 
+-- Creates and opens a floating window to show the active file list
+--
+-- @return The buffer number of the created window
 local function create_window()
     local width, height = 50, 10
     local borderchars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
@@ -111,6 +129,9 @@ local function create_window()
     return M.bufnr
 end
 
+-- Displays the list of active files in the floating window
+--
+-- @return nil
 function M.show_active_files()
     local bufnr = create_window()
     local cwd = util.get_project_root()
@@ -136,6 +157,7 @@ function M.show_active_files()
     end
 end
 
+-- Automatically tracks file when entering a new buffer
 vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
         local filepath = vim.fn.expand("%:p")

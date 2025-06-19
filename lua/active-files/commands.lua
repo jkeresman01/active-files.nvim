@@ -13,6 +13,12 @@ local ui = require("active-files.ui")
 
 local M = {}
 
+-- Registers custom Neovim user commands for interacting with active files
+--
+-- Commands:
+--   :ShowActiveFiles
+--   :SelectActiveFile
+--   :SwitchToActiveFile {n}
 function M.register()
     vim.api.nvim_create_user_command("ShowActiveFiles", function()
         ui.show_active_files()
